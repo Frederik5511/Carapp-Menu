@@ -21,8 +21,8 @@
                 Console.WriteLine("2. Start Motoren");
                 Console.WriteLine("3. Sluk Motoren");
                 Console.WriteLine("4. Kør en tur");
-                Console.WriteLine("5");
-                Console.WriteLine("6");
+                Console.WriteLine("5. Beregn prisen for en tur");
+                Console.WriteLine("6. ");
                 Console.WriteLine("7");
 
                 string userInput = Console.ReadLine();
@@ -66,6 +66,16 @@
 
                         double Price = CalculateTripPrice(TripDistance, LiterPrice, FuelType);
                         Console.WriteLine($"Pris for turen: {Price}");
+                        break;
+                    case "6":
+                        if (IsPalindrome(mileage))
+                        {
+                            Console.WriteLine("Kilometerstanden er et palindrom");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Kilometerstanden er ikke et palindrom");
+                        }
                         break;
                 }
 
@@ -154,9 +164,22 @@
             double TotalPrice = LitersUsed * LiterPrice;
             return TotalPrice;
         }
-    static bool isPalindrome (double distance)
+    static bool IsPalindrome(int km)
         {
-            return false;
+            // Lav tallet om til tekst
+            string value = km.ToString();
+
+            int left = 0;
+            int right = value.Length - 1;
+
+            // Sammenlign yderste tegn og arbejd indad
+            while (left < right)
+            {
+                if (value[left] != value[right])
+                 return false; //Hvis noget ikke matcher, er det ikke et palindrom
+            }
+            // Hvis vi når hertil uden mismatch, er det et palindrom
+            return true;
         }
     static void PrintCarDetails()
         {
