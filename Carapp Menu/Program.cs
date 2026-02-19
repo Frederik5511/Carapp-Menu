@@ -7,6 +7,7 @@
         static int year = 0;
         static int mileage = 0;
         static bool IsEngineOn = false;
+        static double kmPerLiter = 0;
 
 
         static void Main(string[] args)
@@ -46,10 +47,26 @@
                         }
 
                         Drive(distance);
-                        break;    
+                        break;
+                    case "5":
+                        Console.WriteLine("Hvor langt er turen (km)?");
+                        double TripDistance;
+                        while (!double.TryParse(Console.ReadLine(),out TripDistance))
+                        {
+                            Console.WriteLine("Ugyldigt tal. Prøv igen");
+                        }
+                        Console.WriteLine("Hvad koster 1 liter?");
+                        double LiterPrice;
+                        while (!double.TryParse(Console.ReadLine(), out  LiterPrice))
+                        {
+                            Console.WriteLine("Ugyldigt tal. Prøv igen");
+                        }
+                        Console.WriteLine("Brændstoftype benzin/diesel?");
+                        string FuelType = Console.ReadLine();
 
-
-
+                        double Price = CalculateTripPrice(TripDistance, LiterPrice, FuelType);
+                        Console.WriteLine($"Pris for turen: {Price}");
+                        break;
                 }
 
 
@@ -75,12 +92,20 @@
                 // kommer vi herind og beder dem prøve igen
                 Console.WriteLine("Ugyldigt svar. Prøv igen");
             }
+
             Console.WriteLine("Hvad er din kilometerstand?");
             // Samme som tidligere bare med mileage i stedet for year
             while (!int.TryParse(Console.ReadLine(),out mileage))
             {
                 Console.WriteLine("Ugyldigt svar. Prøv igen");
             }
+            Console.WriteLine("Hvor langt kører din bil per liter?");
+            while (!double.TryParse(Console.ReadLine(), out kmPerLiter))
+            {
+                Console.WriteLine("Ugyldigt svar. Prøv igen");
+            }
+
+
 
         }
         
@@ -109,9 +134,25 @@
             }
         }
     
-    static double CalculateTripPrice(double distance, double LiterPrice, double FuelType)
+    static double CalculateTripPrice(double distance, double LiterPrice, string FuelType)
         {
-            return 0;
+            // Undgå division med 0
+            if (kmPerLiter == 0)
+            {
+                Console.WriteLine("Fejl: kmPerLiter er 0. Indtastbilinfo først(punkt 1)");
+                return 0;
+            }
+            // Tjek brændstoftype
+            FuelType = (FuelType ?? "").Trim().ToLower();
+            if (FuelType != "benzin" && FuelType !="Diesel")
+            {
+                Console.WriteLine("Fejl: Brændstoftype skal være 'benzin' eller 'diesel'");
+                return 0;
+            }
+            // Beregn forbrug og pris
+            double LitersUsed = distance / kmPerLiter;
+            double TotalPrice = LitersUsed * LiterPrice;
+            return TotalPrice;
         }
     static bool isPalindrome (double distance)
         {
