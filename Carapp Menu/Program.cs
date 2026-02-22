@@ -22,7 +22,7 @@
                 Console.WriteLine("3. Sluk Motoren");
                 Console.WriteLine("4. Kør en tur");
                 Console.WriteLine("5. Beregn prisen for en tur");
-                Console.WriteLine("6. ");
+                Console.WriteLine("6. Tjek palindrom (km-stand)");
                 Console.WriteLine("7");
 
                 string userInput = Console.ReadLine();
@@ -154,7 +154,7 @@
             }
             // Tjek brændstoftype
             FuelType = (FuelType ?? "").Trim().ToLower();
-            if (FuelType != "benzin" && FuelType !="Diesel")
+            if (FuelType != "benzin" && FuelType !="diesel")
             {
                 Console.WriteLine("Fejl: Brændstoftype skal være 'benzin' eller 'diesel'");
                 return 0;
@@ -176,7 +176,11 @@
             while (left < right)
             {
                 if (value[left] != value[right])
-                 return false; //Hvis noget ikke matcher, er det ikke et palindrom
+                {
+                    return false; //Hvis noget ikke matcher, er det ikke et palindrom
+                }
+                left++;
+                right--;
             }
             // Hvis vi når hertil uden mismatch, er det et palindrom
             return true;
