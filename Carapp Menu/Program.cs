@@ -186,8 +186,8 @@
                 {
                     return false; //Hvis noget ikke matcher, er det ikke et palindrom
                 }
-                left++;
-                right--;
+                left++; // Flytter én position ind fra venstre
+                right--; // Flytter én position ind fra højre
             }
             // Hvis vi når hertil uden mismatch, er det et palindrom
             return true;
