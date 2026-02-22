@@ -23,7 +23,7 @@
                 Console.WriteLine("4. Kør en tur");
                 Console.WriteLine("5. Beregn prisen for en tur");
                 Console.WriteLine("6. Tjek palindrom (km-stand)");
-                Console.WriteLine("7");
+                Console.WriteLine("7. Luk ned");
 
                 string userInput = Console.ReadLine();
 
@@ -76,6 +76,13 @@
                         {
                             Console.WriteLine("Kilometerstanden er ikke et palindrom");
                         }
+                        break;
+                    case "7":
+                        isRunning = false;
+                        Console.WriteLine("Lukker ned.");
+                        break;
+                    default:
+                        Console.WriteLine("Ugyldigt input. Vælg mellem 1 og 7.");
                         break;
                 }
 
