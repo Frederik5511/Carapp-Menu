@@ -57,7 +57,7 @@
                         Console.WriteLine("Brændstoftype benzin/diesel?");
                         string FuelType = Console.ReadLine();
 
-                        double Price = myCar.CalculateTripPrice(TripDistance, LiterPrice, FuelType);
+                        double Price = myCar.CalculateTripPrice(TripDistance, LiterPrice);
                         Console.WriteLine($"Pris for turen: {Price}");
                         break;
                     case "6":

@@ -81,7 +81,7 @@ namespace Carapp_Menu
             }
         }
 
-        public double CalculateTripPrice(double distance, double LiterPrice, string FuelType)
+        public double CalculateTripPrice(double distance, double LiterPrice)
         {
             // Undgå division med 0
             if (_kmPerLiter == 0)
@@ -90,8 +90,8 @@ namespace Carapp_Menu
                 return 0;
             }
             // Tjek brændstoftype
-            FuelType = (FuelType ?? "").Trim().ToLower();
-            if (FuelType != "benzin" && FuelType != "diesel")
+            _fueltype = (_fueltype ?? "").Trim().ToLower();
+            if (_fueltype != "benzin" && _fueltype != "diesel")
             {
                 Console.WriteLine("Fejl: Brændstoftype skal være 'benzin' eller 'diesel'");
                 return 0;
