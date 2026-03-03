@@ -6,6 +6,10 @@
         static void Main(string[] args)
         {
             Car myCar = new Car();
+            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', "Benzin", 22.5);
+            Car myCar2 = new Car("Nissan", "Qashqai", 2017, 'M', "diesel", 17.8);
+
+
             bool isRunning = true;
             while (isRunning)
             {
@@ -54,8 +58,6 @@
                         {
                             Console.WriteLine("Ugyldigt tal. Prøv igen");
                         }
-                        Console.WriteLine("Brændstoftype benzin/diesel?");
-                        string FuelType = Console.ReadLine();
 
                         double Price = myCar.CalculateTripPrice(TripDistance, LiterPrice);
                         Console.WriteLine($"Pris for turen: {Price}");
@@ -78,7 +80,6 @@
                         Console.WriteLine("Ugyldigt input. Vælg mellem 1 og 7.");
                         break;
                 }
-
 
 
             }
