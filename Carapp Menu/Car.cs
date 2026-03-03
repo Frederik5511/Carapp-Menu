@@ -10,9 +10,11 @@ namespace Carapp_Menu
         private string _brand = "";
         private string _model = "";
         private int _year = 0;
+        private char _gearType;
+        private string _fueltype = "";
+        private double _kmPerLiter = 0;
         private int _mileage = 0;
         private bool _IsEngineOn = false;
-        private double _kmPerLiter = 0;
 
         public int Mileage
         {
@@ -98,10 +100,6 @@ namespace Carapp_Menu
             double LitersUsed = distance / _kmPerLiter;
             double TotalPrice = LitersUsed * LiterPrice;
             return TotalPrice;
-        }
-        public void PrintCarDetails()
-        {
-
         }
     }
 }
