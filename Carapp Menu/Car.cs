@@ -13,6 +13,11 @@ namespace Carapp_Menu
         private int _mileage = 0;
         private bool _IsEngineOn = false;
         private double _kmPerLiter = 0;
+
+        public int Mileage
+        {
+            get {  return _mileage; }
+        }
         public void ReadCarDetails()
         {
             Console.WriteLine("Hvilket bilmærke er din bil?");
@@ -93,27 +98,6 @@ namespace Carapp_Menu
             double LitersUsed = distance / _kmPerLiter;
             double TotalPrice = LitersUsed * LiterPrice;
             return TotalPrice;
-        }
-        public bool IsPalindrome(int km)
-        {
-            // Lav tallet om til tekst
-            string value = km.ToString();
-
-            int left = 0;
-            int right = value.Length - 1;
-
-            // Sammenlign yderste tegn og arbejd indad
-            while (left < right)
-            {
-                if (value[left] != value[right])
-                {
-                    return false; //Hvis noget ikke matcher, er det ikke et palindrom
-                }
-                left++; // Flytter én position ind fra venstre
-                right--; // Flytter én position ind fra højre
-            }
-            // Hvis vi når hertil uden mismatch, er det et palindrom
-            return true;
         }
         public void PrintCarDetails()
         {
