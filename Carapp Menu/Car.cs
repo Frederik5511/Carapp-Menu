@@ -39,9 +39,45 @@ namespace Carapp_Menu
                 // kommer vi herind og beder dem prøve igen
                 Console.WriteLine("Ugyldigt svar. Prøv igen");
             }
+            Console.WriteLine("Vælg gear type (A = Automat, M = Manuel)");
+
+            while (true)
+            {
+                string input = Console.ReadLine()?.Trim().ToUpper();
+                if (!string.IsNullOrEmpty(input) && input.Length == 1) //Hvis input ikke er tomt OG består af præcis ét tegn
+                {
+                    char gear = input[0]; ;
+                    if (gear == 'A' || gear == 'M')
+                    {
+                        _gearType = gear;
+                        break;
+                    }
+                }
+                Console.WriteLine("Ugyldigt valg. Skriv A eller M");
+            }
+
+            Console.WriteLine("Hvilken slags brændstof bruger din bil Benzin eller Diesel?");
+            
+            while (true)
+            {
+                string input = Console.ReadLine()?.Trim()?.ToLower();
+                if (!string.IsNullOrEmpty(input))
+                {
+                    string fueltype = input;
+                    if (fueltype == "benzin" || fueltype == "diesel")
+                    {
+                        _fueltype = fueltype;
+                        break;
+                    }
+                }
+                Console.WriteLine("Ugyldigt valg. Vælg Benzin eller Diesel");
+            }
+
+
+
 
             Console.WriteLine("Hvad er din kilometerstand?");
-            // Samme som tidligere bare med mileage i stedet for year
+            
             while (!int.TryParse(Console.ReadLine(), out _mileage))
             {
                 Console.WriteLine("Ugyldigt svar. Prøv igen");
