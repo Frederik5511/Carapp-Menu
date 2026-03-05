@@ -15,11 +15,18 @@ namespace Carapp_Menu
         private int _mileage = 0;
         private bool _IsEngineOn = false;
 
+        private List<Trip> _trips = new List<Trip>();
         public int Mileage
         {
             get {  return _mileage; }
         }
+        public double KmPerLiter
+        {
+            get { return _kmPerLiter;}
+        }
         public FuelType FuelType { get; private set; }
+        
+        
         public void ReadCarDetails()
         {
             Console.WriteLine("Hvilket bilmærke er din bil?");
@@ -110,21 +117,6 @@ namespace Carapp_Menu
                 Console.WriteLine("Tænd motoren");
             }
         }
-
-        public double CalculateTripPrice(double distance, double LiterPrice)
-        {
-            // Undgå division med 0
-            if (_kmPerLiter <= 0)
-            {
-                Console.WriteLine("Fejl: kmPerLiter er 0. Indtastbilinfo først(punkt 1)");
-                return 0;
-            }
-                // Beregn forbrug og pris
-                double LitersUsed = distance / _kmPerLiter;
-                double TotalPrice = LitersUsed * LiterPrice;
-                return TotalPrice;
-            
-        }
         public Car()
         {
 
@@ -140,5 +132,6 @@ namespace Carapp_Menu
             FuelType = fuelType;
             _kmPerLiter = kmPerLiter;
         }
+
     }
 }

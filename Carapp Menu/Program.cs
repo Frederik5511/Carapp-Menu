@@ -44,8 +44,6 @@
                         {
                             Console.WriteLine("Ugyldigt tal. Prøv igen");
                         }
-
-                        myCar.Drive(distance);
                         break;
                     case "5":
                         Console.WriteLine("Hvor langt er turen (km)?");

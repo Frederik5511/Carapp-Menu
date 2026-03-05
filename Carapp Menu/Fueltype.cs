@@ -11,8 +11,4 @@ namespace Carapp_Menu
         Electric,
         Hybrid
     }
-
-    internal class Fueltype
-    { 
-    }
 }
