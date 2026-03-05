@@ -6,7 +6,7 @@
         static void Main(string[] args)
         {
             Car myCar = new Car();
-            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', "benzin", 22.5);
+            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', FuelType.Benzin, 22.5);
             myCar1.StartEngine();
             myCar1.Drive(10);
             Console.WriteLine($"Pris (myCar1): {myCar1.CalculateTripPrice(50, 14.5):0.00} kr");

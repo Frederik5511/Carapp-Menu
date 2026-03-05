@@ -11,7 +11,6 @@ namespace Carapp_Menu
         private string _model = "";
         private int _year = 0;
         private char _gearType;
-        private string _fueltype = "";
         private double _kmPerLiter = 0;
         private int _mileage = 0;
         private bool _IsEngineOn = false;
@@ -20,6 +19,7 @@ namespace Carapp_Menu
         {
             get {  return _mileage; }
         }
+        public FuelType FuelType { get; private set; }
         public void ReadCarDetails()
         {
             Console.WriteLine("Hvilket bilmærke er din bil?");
@@ -56,21 +56,18 @@ namespace Carapp_Menu
                 Console.WriteLine("Ugyldigt valg. Skriv A eller M");
             }
 
-            Console.WriteLine("Hvilken slags brændstof bruger din bil Benzin eller Diesel?");
+            Console.WriteLine("Hvilken slags brændstof bruger din bil Benzin, Diesel, Electric eller Hybrid");
             
             while (true)
             {
-                string input = Console.ReadLine()?.Trim().ToLower();
-                if (!string.IsNullOrEmpty(input))
+                string input = Console.ReadLine()?.Trim();
+                if (Enum.TryParse(input, true, out FuelType fuelType))
                 {
-                    string fueltype = input;
-                    if (fueltype == "benzin" || fueltype == "diesel")
-                    {
-                        _fueltype = fueltype;
-                        break;
-                    }
+                    FuelType = fuelType;
+                    break;
                 }
-                Console.WriteLine("Ugyldigt valg. Vælg Benzin eller Diesel");
+                
+                Console.WriteLine("Ugyldigt valg. Vælg Benzin, Diesel, Electric eller Hybrid");
             }
 
             Console.WriteLine("Hvad er din kilometerstand?");
@@ -117,22 +114,16 @@ namespace Carapp_Menu
         public double CalculateTripPrice(double distance, double LiterPrice)
         {
             // Undgå division med 0
-            if (_kmPerLiter == 0)
+            if (_kmPerLiter <= 0)
             {
                 Console.WriteLine("Fejl: kmPerLiter er 0. Indtastbilinfo først(punkt 1)");
                 return 0;
             }
-            // Tjek brændstoftype
-            string fuel = (_fueltype ?? "").Trim().ToLower();
-            if (fuel != "benzin" && fuel != "diesel")
-            {
-                Console.WriteLine("Fejl: Brændstoftype skal være 'benzin' eller 'diesel'");
-                return 0;
-            }
-            // Beregn forbrug og pris
-            double LitersUsed = distance / _kmPerLiter;
-            double TotalPrice = LitersUsed * LiterPrice;
-            return TotalPrice;
+                // Beregn forbrug og pris
+                double LitersUsed = distance / _kmPerLiter;
+                double TotalPrice = LitersUsed * LiterPrice;
+                return TotalPrice;
+            
         }
         public Car()
         {
@@ -140,13 +131,13 @@ namespace Carapp_Menu
         }
         
         
-        public Car(string brand, string model, int year, char gearType, string fuelType, double kmPerLiter)
+        public Car(string brand, string model, int year, char gearType, FuelType fuelType, double kmPerLiter)
         {
             _brand = brand;
             _model = model;
             _year = year;
             _gearType = gearType;
-            _fueltype = fuelType;
+            FuelType = fuelType;
             _kmPerLiter = kmPerLiter;
         }
     }
