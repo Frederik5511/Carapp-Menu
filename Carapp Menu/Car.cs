@@ -152,5 +152,18 @@ namespace Carapp_Menu
             }
             return result;
         }
+
+        public List <Trip> GetTripsInTimeInterval(DateTime start, DateTime end)
+        {
+            List<Trip> result = new List<Trip>();
+            foreach (Trip trip in _trips)
+            {
+                if (trip.StartTime >= start && trip.StartTime <= end)
+                {
+                    result.Add(trip);
+                }
+            }
+            return result;
+        }
     }
 }
