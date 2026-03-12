@@ -1,4 +1,7 @@
-﻿namespace Carapp_Menu
+﻿using System;
+using System.Collections.Generic;
+
+namespace Carapp_Menu
 {
     internal class Program
     {
@@ -6,10 +9,6 @@
         static void Main(string[] args)
         {
             Car myCar = new Car();
-            Car myCar1 = new Car("Toyota", "Corolla", 2020, 'A', FuelType.Benzin, 22.5);
-            myCar1.StartEngine();
-            myCar1.Drive(10);
-            Console.WriteLine($"Pris (myCar1): {myCar1.CalculateTripPrice(50, 14.5):0.00} kr");
 
 
             bool isRunning = true;
@@ -38,30 +37,48 @@
                         myCar.StopEngine();
                         break;
                     case "4":
-                        Console.WriteLine("Hvor langt vil du kører?");
+                        Console.WriteLine("Hvor langt er turen (km)?");
                         double distance;
                         while(!double.TryParse(Console.ReadLine(), out distance))
                         {
                             Console.WriteLine("Ugyldigt tal. Prøv igen");
                         }
+                        Console.WriteLine("Hvor mange minutter varer turen? (fx 30)");
+                        int minutes;
+                        while (!int.TryParse(Console.ReadLine(),out minutes)|| minutes <= 0)
+                        {
+                            Console.WriteLine("Ugyldigt tal. Prøv igen");
+                        }
+                        DateTime startTime = DateTime.Now;
+                        DateTime endTime = startTime.AddMinutes(minutes);
+
+                        Trip newTrip = new Trip(myCar, distance, startTime, endTime);
+                        myCar.Drive(newTrip);
+
+                        Console.WriteLine("Turen er tilføjet (hvis motor var tændt og turen tilhørte bilen)");
                         break;
                     case "5":
-                        Console.WriteLine("Hvor langt er turen (km)?");
-                        double TripDistance;
-                        while (!double.TryParse(Console.ReadLine(),out TripDistance))
-                        {
-                            Console.WriteLine("Ugyldigt tal. Prøv igen");
-                        }
                         Console.WriteLine("Hvad koster 1 liter?");
                         double LiterPrice;
-                        while (!double.TryParse(Console.ReadLine(), out  LiterPrice))
+                        while (!double.TryParse(Console.ReadLine(), out  LiterPrice) || LiterPrice < 0)
                         {
                             Console.WriteLine("Ugyldigt tal. Prøv igen");
                         }
-
-                        double Price = myCar.CalculateTripPrice(TripDistance, LiterPrice);
-                        Console.WriteLine($"Pris for turen: {Price}");
-                        break;
+                        List<Trip> trips = myCar.GetTrips();
+                        if (trips.Count == 0)
+                        {
+                            Console.WriteLine("Der er ingen ture endnu");
+                        }
+                        else
+                        {
+                            Console.WriteLine("=== Ture ===");
+                            foreach (Trip trip in trips)
+                            {
+                                Console.WriteLine(trip.GetTripDetails(LiterPrice));
+                                Console.WriteLine();
+                            }
+                        }
+                        break;                  
                     case "6":
                         if (IsPalindrome(myCar.Mileage))
                         {

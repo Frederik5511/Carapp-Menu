@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Carapp_Menu
 {
-    internal class Trip
+    public class Trip
     {
         private Car _car;
         private double _distance;
@@ -19,6 +19,18 @@ namespace Carapp_Menu
         public double Distance
         {
             get { return _distance; }
+        }
+        public DateTime StartTime
+        {
+            get { return _startTime; } 
+        }
+        public DateTime EndTime
+        {
+            get { return _endTime; } 
+        }
+        public DateTime TripDate
+        {
+            get { return _startTime.Date; }
         }
         //Constructor
         public Trip(Car car, double distance, DateTime startTime, DateTime endTime)

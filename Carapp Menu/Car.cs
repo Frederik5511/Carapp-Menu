@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Carapp_Menu
 {
-    internal class Car
+    public class Car
     {
         private string _brand = "";
         private string _model = "";
@@ -105,16 +105,20 @@ namespace Carapp_Menu
             Console.WriteLine("Motoren er nu slukket");
         }
 
-        public void Drive(double distance)
+        public void Drive(Trip newTrip)
         {
-            if (_IsEngineOn)
+            if (!_IsEngineOn)
             {
-                _mileage += (int)Math.Round(distance);
-                Console.WriteLine($"Ny kilometerstand: {_mileage}");
+                Console.WriteLine("Tænd motoren");
+            }
+            else if (newTrip.Car != this)
+            {
+                Console.WriteLine("Denne tur tilhører ikke denne bil.");
             }
             else
             {
-                Console.WriteLine("Tænd motoren");
+                _mileage += (int)Math.Round(newTrip.Distance);
+                _trips.Add(newTrip);
             }
         }
         public Car()
@@ -132,6 +136,21 @@ namespace Carapp_Menu
             FuelType = fuelType;
             _kmPerLiter = kmPerLiter;
         }
-
+        public List<Trip> GetTrips()
+        {
+            return _trips;
+        }
+        public List <Trip> GetTripsByDate(DateTime date)
+        {
+            List<Trip> result = new List<Trip>();
+            foreach (Trip trip in _trips)
+            {
+                if (trip.TripDate.Date == date.Date)
+                {
+                    result.Add(trip); 
+                }
+            }
+            return result;
+        }
     }
 }
